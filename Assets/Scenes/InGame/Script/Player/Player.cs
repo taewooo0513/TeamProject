@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
         //플레이어 죽음
         if(hp == 0)
         {
+            anim.SetBool("IsDie", true);
             GameManager.isPlayerDie = true;
         }
 
@@ -43,7 +44,7 @@ public class Player : MonoBehaviour
     {
         if ((Input.GetMouseButtonDown(0) || Input.touchCount > 0) && !isAttack)
         {
-            if (GameObject.FindGameObjectsWithTag("Enemy") != null)
+            if (GameObject.FindGameObjectWithTag("Enemy") != null)
             {
                 /*가장 가까운 적 찾기*/
                 List<GameObject> FindEnemy = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
@@ -66,25 +67,21 @@ public class Player : MonoBehaviour
             else
             {
                 enemy = null;
-                Debug.Log("gd");
+            }
+
+            if (enemy != null)
+            {
+                if (transform.position.x < enemy.transform.position.x && enemy.transform.position.x <= transform.position.x + 1.8f)
+                {
+                    GameManager.isEnemyDie = true;
+                    Destroy(enemy);
+                }
             }
 
             anim.SetBool("IsAttack", true);
             Invoke("StopAtkAnim", 0.15f);
 
             isAttack = true;
-        }
-
-        if(isAttack)
-        {
-            if (enemy != null)
-            {
-                if (transform.position.x < enemy.transform.position.x && enemy.transform.position.x <= transform.position.x + 1.5f)
-                {
-                    GameManager.isEnemyDie = true;
-                    Destroy(enemy);
-                }
-            }
         }
     }
 

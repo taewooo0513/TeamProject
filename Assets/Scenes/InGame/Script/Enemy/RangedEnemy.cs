@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class RangedEnemy : MonoBehaviour
 {
     [Header("Bullet")]
     public GameObject bullet; //총알

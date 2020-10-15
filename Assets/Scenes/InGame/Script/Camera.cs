@@ -7,9 +7,9 @@ public class Camera : MonoBehaviour
     [Header("Player")]
     public GameObject player;
 
-    [Header ("Offset")]
-    public float offsetX = 0;
-    public float offsetY = 0;
+    [Header("Offset")]
+    public float offsetX;
+    public float offsetY;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +20,6 @@ public class Camera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(player.transform.position.x - offsetX, player.transform.position.y - offsetY, player.transform.position.z - 1);
+        transform.position = new Vector3(player.transform.position.x + offsetX, player.transform.position.y + offsetY, player.transform.position.z - 1);
     }
 }
