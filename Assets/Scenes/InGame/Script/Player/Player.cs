@@ -44,25 +44,13 @@ public class Player : MonoBehaviour
     {
         if ((Input.GetMouseButtonDown(0) || Input.touchCount > 0) && !isAttack)
         {
+            //if(GameObject.FindGameObjectWithTag("Bullet") != null)
+            //{
+            //    FindNearObject("Bullet");
+            //}
             if (GameObject.FindGameObjectWithTag("Enemy") != null)
             {
-                /*가장 가까운 적 찾기*/
-                List<GameObject> FindEnemy = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
-                float shortDis = Vector3.Distance(transform.position, FindEnemy[0].transform.position);
-                GameObject nearEnemy = FindEnemy[0];
-
-                foreach (GameObject found in FindEnemy)
-                {
-                    float Distance = Vector3.Distance(transform.position, found.transform.position);
-
-                    if (Distance < shortDis)
-                    {
-                        nearEnemy = found;
-                        shortDis = Distance;
-                    }
-                }
-                /**/
-                enemy = nearEnemy;
+                FindNearObject("Enemy");
             }
             else
             {
@@ -71,15 +59,26 @@ public class Player : MonoBehaviour
 
             if (enemy != null)
             {
-                if (transform.position.x < enemy.transform.position.x && enemy.transform.position.x <= transform.position.x + 1.8f)
+                if (enemy.tag == "Enemy")
                 {
-                    GameManager.isEnemyDie = true;
-                    Destroy(enemy);
-                }
-            }
+                    if (transform.position.x < enemy.transform.position.x && enemy.transform.position.x <= transform.position.x + 1.8f)
+                    {
+                        GameManager.isEnemyDie = true;
+                        Destroy(enemy);
+                    }
 
-            anim.SetBool("IsAttack", true);
-            Invoke("StopAtkAnim", 0.15f);
+                    anim.SetBool("IsAttack", true);
+                    Invoke("StopAtkAnim", 0.15f);
+                }
+                //else if (enemy.tag == "Bullet")
+                //{
+                //    if (transform.position.x < enemy.transform.position.x && enemy.transform.position.x <= transform.position.x + 3f)
+                //    {
+                //        anim.SetBool("IsJump", true);
+                //        Invoke("AtkOff", 0.4f);
+                //    }
+                //}
+            }
 
             isAttack = true;
         }
@@ -99,6 +98,12 @@ public class Player : MonoBehaviour
     {
         anim.SetBool("IsHurt", false);
     }
+    void StopJumpAnim()
+    {
+        anim.SetBool("IsJump", false);
+
+        AtkOff();
+    }
     void StopAtkAnim()
     {
         anim.SetBool("IsAttack", false);
@@ -108,5 +113,26 @@ public class Player : MonoBehaviour
     void AtkOff()
     {
         isAttack = false;
+    }
+
+    void FindNearObject(string Object)
+    {
+        /*가장 가까운 적 찾기*/
+        List<GameObject> FindEnemy = new List<GameObject>(GameObject.FindGameObjectsWithTag(Object));
+        float shortDis = Vector3.Distance(transform.position, FindEnemy[0].transform.position);
+        GameObject nearEnemy = FindEnemy[0];
+
+        foreach (GameObject found in FindEnemy)
+        {
+            float Distance = Vector3.Distance(transform.position, found.transform.position);
+
+            if (Distance < shortDis)
+            {
+                nearEnemy = found;
+                shortDis = Distance;
+            }
+        }
+        /**/
+        enemy = nearEnemy;
     }
 }

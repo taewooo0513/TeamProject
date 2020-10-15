@@ -22,17 +22,22 @@ public class MeleeEnemy : MonoBehaviour
     {
         if (GameManager.isEnemyDie)
         {
-            //애니메이션
+            //애니메이션 플레이
             GameManager.isEnemyDie = false;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "CameraCollider")
+        if (collision.gameObject.tag == "Player")
         {
             anim.SetBool("IsAttack", true);
-            Invoke("StopAtkAnim", 0.2f);
+            Invoke("StopAtkAnim", 0.25f);
         }
+    }
+
+    void StopAtkAnim()
+    {
+        anim.SetBool("IsAttack", false);
     }
 }
