@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8042debdb45b8f4eb0aebfc01795238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 3
+  hp: 10
   speed: 5
 --- !u!212 &36755120
 SpriteRenderer:
@@ -217,7 +217,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 36755118}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.64, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children: []
   m_Father: {fileID: 0}
@@ -369,7 +369,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 240884025}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.29, y: 0, z: 0}
+  m_LocalPosition: {x: 22, y: 0, z: 0}
   m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children:
   - {fileID: 1305678269}
@@ -390,6 +390,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 102242466614138112, guid: 8e477d57e89a52744a661726d59d4b86, type: 3}
   firePos: {fileID: 1305678269}
+  fireCount: 1
+  fireTime: 0
 --- !u!61 &240884029
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -9,16 +9,16 @@ public class Player : MonoBehaviour
     [Space(2f)]
     public float speed = 5;
 
-    private GameObject enemy;
+    private GameObject enemy;       //적
     private Animator anim;
-    private bool isAttack = false;
-    private float curTime;
-    private float distance;
+    private SpriteRenderer sprRenderer;
+    private bool isAttack = false;  //공격 상태
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
+        sprRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -41,53 +41,75 @@ public class Player : MonoBehaviour
  
     private void Attack()
     {
-        if (Input.touchCount > 0 && !isAttack)
+        if ((Input.GetMouseButtonDown(0) || Input.touchCount > 0) && !isAttack)
         {
-            /*가장 가까운 적 찾기*/
-            List<GameObject> FindEnemy = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
-            float shortDis = Vector3.Distance(transform.position, FindEnemy[0].transform.position);
-            GameObject nearEnemy = FindEnemy[0];
-
-            foreach (GameObject found in FindEnemy)
+            if (GameObject.FindGameObjectsWithTag("Enemy") != null)
             {
-                float Distance = Vector3.Distance(transform.position, found.transform.position);
+                /*가장 가까운 적 찾기*/
+                List<GameObject> FindEnemy = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
+                float shortDis = Vector3.Distance(transform.position, FindEnemy[0].transform.position);
+                GameObject nearEnemy = FindEnemy[0];
 
-                if (Distance < shortDis)
+                foreach (GameObject found in FindEnemy)
                 {
-                    nearEnemy = found;
-                    shortDis = Distance;
+                    float Distance = Vector3.Distance(transform.position, found.transform.position);
+
+                    if (Distance < shortDis)
+                    {
+                        nearEnemy = found;
+                        shortDis = Distance;
+                    }
                 }
+                /**/
+                enemy = nearEnemy;
             }
-            /**/
-            enemy = nearEnemy;
-            distance = Vector2.Distance(transform.position, enemy.transform.position);
+            else
+            {
+                enemy = null;
+                Debug.Log("gd");
+            }
+
+            anim.SetBool("IsAttack", true);
+            Invoke("StopAtkAnim", 0.15f);
+
             isAttack = true;
         }
 
         if(isAttack)
         {
-            //애니메이션 플레이
-            if (distance <= 0.5f)
+            if (enemy != null)
             {
-                GameManager.isEnemyDie = true;
-                Destroy(enemy);
+                if (transform.position.x < enemy.transform.position.x && enemy.transform.position.x <= transform.position.x + 1.5f)
+                {
+                    GameManager.isEnemyDie = true;
+                    Destroy(enemy);
+                }
             }
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Bullet")
+        if (!anim.GetBool("IsHurt") && (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Bullet"))
         {
             anim.SetBool("IsHurt", true);
-            Invoke("StopHurtAnim", 0.1f);
+            Invoke("StopHurtAnim", 0.2f);
             hp -= 1;
-
         }
     }
 
     void StopHurtAnim()
     {
         anim.SetBool("IsHurt", false);
+    }
+    void StopAtkAnim()
+    {
+        anim.SetBool("IsAttack", false);
+
+        Invoke("AtkOff", 0.4f);
+    }
+    void AtkOff()
+    {
+        isAttack = false;
     }
 }
