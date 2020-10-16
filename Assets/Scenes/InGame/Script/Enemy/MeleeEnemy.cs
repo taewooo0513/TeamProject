@@ -4,18 +4,31 @@ using UnityEngine;
 
 public class MeleeEnemy : MonoBehaviour
 {
-    private Animator anim;
+    public bool canGiant = false;
 
-    // Start is called before the first frame update
+    private Animator anim;
+    private bool giantInCam = false;
+
     void Start()
     {
+
         anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (giantInCam)
+        {
+            if (transform.localScale.x < 1.5f && transform.localScale.y < 1.5f)
+            {
+                transform.localScale = Vector2.Lerp(transform.localScale, new Vector2(1.5f, 1.5f), Time.deltaTime);
+            }
+        }
+    }
+
+    void OnBecameVisible()
+    {
+        if (canGiant) giantInCam = true;
     }
 
     private void OnDestroy()

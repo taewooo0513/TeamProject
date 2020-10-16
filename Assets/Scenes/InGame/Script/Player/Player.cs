@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [Header ("Player status")]
+    [Header("Player status")]
     public int hp = 3;
     [Space(2f)]
     public float speed = 5;
@@ -31,23 +31,20 @@ public class Player : MonoBehaviour
         }
 
         //플레이어 죽음
-        if(hp == 0)
+        if (hp == 0)
         {
             anim.SetBool("IsDie", true);
             GameManager.isPlayerDie = true;
         }
 
         Attack();
+        Jump();
     }
- 
+
     private void Attack()
     {
         if ((Input.GetMouseButtonDown(0) || Input.touchCount > 0) && !isAttack)
         {
-            //if(GameObject.FindGameObjectWithTag("Bullet") != null)
-            //{
-            //    FindNearObject("Bullet");
-            //}
             if (GameObject.FindGameObjectWithTag("Enemy") != null)
             {
                 FindNearObject("Enemy");
@@ -59,28 +56,28 @@ public class Player : MonoBehaviour
 
             if (enemy != null)
             {
-                if (enemy.tag == "Enemy")
+                if (transform.position.x < enemy.transform.position.x && enemy.transform.position.x <= transform.position.x + 1.8f)
                 {
-                    if (transform.position.x < enemy.transform.position.x && enemy.transform.position.x <= transform.position.x + 1.8f)
-                    {
-                        GameManager.isEnemyDie = true;
-                        Destroy(enemy);
-                    }
-
-                    anim.SetBool("IsAttack", true);
-                    Invoke("StopAtkAnim", 0.15f);
+                    GameManager.isEnemyDie = true;
+                    Destroy(enemy);
                 }
-                //else if (enemy.tag == "Bullet")
-                //{
-                //    if (transform.position.x < enemy.transform.position.x && enemy.transform.position.x <= transform.position.x + 3f)
-                //    {
-                //        anim.SetBool("IsJump", true);
-                //        Invoke("AtkOff", 0.4f);
-                //    }
-                //}
+
+                anim.SetBool("IsAttack", true);
+                Invoke("StopAtkAnim", 0.15f);
             }
 
             isAttack = true;
+        }
+    }
+
+    private void Jump()
+    {
+        if(!isAttack && Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if(touch.phase == TouchPhase.Began)
+            {
+            }
         }
     }
 
