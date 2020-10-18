@@ -9,10 +9,11 @@ public class Player : MonoBehaviour
     [Space(2f)]
     public float speed = 5;
 
-    private GameObject enemy;       //적
+    private GameObject enemy;
     private Animator anim;
     private SpriteRenderer sprRenderer;
-    private bool isAttack = false;  //공격 상태
+    private bool isTouch = false;
+    private Vector2 mousePos;
 
     // Start is called before the first frame update
     void Start()
@@ -37,48 +38,85 @@ public class Player : MonoBehaviour
             GameManager.isPlayerDie = true;
         }
 
-        Attack();
-        Jump();
+        Touch();
     }
 
-    private void Attack()
+    private void Touch()
     {
-        if ((Input.GetMouseButtonDown(0) || Input.touchCount > 0) && !isAttack)
-        {
-            if (GameObject.FindGameObjectWithTag("Enemy") != null)
-            {
-                FindNearObject("Enemy");
-            }
-            else
-            {
-                enemy = null;
-            }
+        //if (Input.touchCount > 0 && !isTouch)
+        //{
+        //    Touch touch = Input.GetTouch(0);
 
-            if (enemy != null)
+        //    switch (touch.phase)
+        //    {
+        //        case TouchPhase.Began:
+        //            mousePos = touch.deltaPosition;
+        //            break;
+
+        //        case TouchPhase.Ended:
+        //            if (touch.deltaPosition.y > mousePos.y + 1f)
+        //            {
+        //                isTouch = true;
+        //                Jump();
+        //            }
+        //            else
+        //            {
+        //                isTouch = true;
+        //                Attack();
+        //            }
+        //            break;
+        //    }
+        //}
+        if (!isTouch && !anim.GetBool("IsHurt"))
+        {
+            if (Input.GetMouseButtonDown(0))
             {
-                if (transform.position.x < enemy.transform.position.x && enemy.transform.position.x <= transform.position.x + 1.8f)
+                mousePos = Input.mousePosition;
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                if (Input.mousePosition.y > mousePos.y + 5f)
                 {
-                    GameManager.isEnemyDie = true;
-                    Destroy(enemy);
+                    isTouch = true;
+                    Jump();
                 }
-
-                anim.SetBool("IsAttack", true);
-                Invoke("StopAtkAnim", 0.15f);
+                else
+                {
+                    isTouch = true;
+                    Attack();
+                }
             }
-
-            isAttack = true;
         }
     }
 
-    private void Jump()
+    void Attack()
     {
-        if(!isAttack && Input.touchCount > 0)
+        if (GameObject.FindGameObjectWithTag("Enemy") != null)
         {
-            Touch touch = Input.GetTouch(0);
-            if(touch.phase == TouchPhase.Began)
+            FindNearObject("Enemy");
+        }
+        else
+        {
+            enemy = null;
+        }
+
+        if (enemy != null)
+        {
+            if (transform.position.x < enemy.transform.position.x && enemy.transform.position.x <= transform.position.x + 1.8f)
             {
+                GameManager.isEnemyDie = true;
+                Destroy(enemy);
             }
         }
+
+        anim.SetBool("IsAttack", true);
+        Invoke("StopAtkAnim", 0.15f);
+    }
+
+    void Jump()
+    {
+        anim.SetBool("IsJump", true);
+        Invoke("StopJumpAnim", 0.4f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -99,17 +137,17 @@ public class Player : MonoBehaviour
     {
         anim.SetBool("IsJump", false);
 
-        AtkOff();
+        EndTouch();
     }
     void StopAtkAnim()
     {
         anim.SetBool("IsAttack", false);
 
-        Invoke("AtkOff", 0.4f);
+        Invoke("EndTouch", 0.4f);
     }
-    void AtkOff()
+    void EndTouch()
     {
-        isAttack = false;
+        isTouch = false;
     }
 
     void FindNearObject(string Object)
