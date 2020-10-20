@@ -8,12 +8,17 @@ public class Player : MonoBehaviour
     public int hp = 3;
     [Space(2f)]
     public float speed = 5;
+    public float jump;
 
     private GameObject enemy;
     private Animator anim;
     private SpriteRenderer sprRenderer;
+
     private bool isTouch = false;
+    private bool isBind = false;
+
     private Vector2 mousePos;
+    private int clickCount;
 
     // Start is called before the first frame update
     void Start()
@@ -26,9 +31,9 @@ public class Player : MonoBehaviour
     void Update()
     {
         //플레이어 이동
-        if (!GameManager.isPlayerDie)
+        if (!GameManager.isPlayerDie && !isBind)
         {
-            transform.Translate(speed * Time.deltaTime, 0, 0);
+            transform.Translate(speed * Time.deltaTime, jump * Time.deltaTime, 0);
         }
 
         //플레이어 죽음
@@ -43,23 +48,23 @@ public class Player : MonoBehaviour
 
     private void Touch()
     {
-        //if (Input.touchCount > 0 && !isTouch)
+        //if (Input.touchCount > 0 && !isTouch && !isBind)
         //{
         //    Touch touch = Input.GetTouch(0);
 
         //    switch (touch.phase)
         //    {
-        //        case TouchPhase.Began:
+        //        case TouchPhase.Began: //눌렸을 때
         //            mousePos = touch.deltaPosition;
         //            break;
 
-        //        case TouchPhase.Ended:
-        //            if (touch.deltaPosition.y > mousePos.y + 1f)
+        //        case TouchPhase.Ended: //뗐을 때
+        //            if (touch.deltaPosition.y > mousePos.y + 1f) //위로 터치 슬라이드 시 점프
         //            {
         //                isTouch = true;
         //                Jump();
         //            }
-        //            else
+        //            else //누르고 뗏을 때 공격
         //            {
         //                isTouch = true;
         //                Attack();
@@ -67,7 +72,28 @@ public class Player : MonoBehaviour
         //            break;
         //    }
         //}
-        if (!isTouch && !anim.GetBool("IsHurt"))
+        //else if (isBind) //묶여있는 상태
+        //{
+        //    Touch touch = Input.GetTouch(0);
+
+        //    if (touch.phase == TouchPhase.Began && clickCount < 20)
+        //    {
+        //        clickCount++;
+        //        //Debug.Log(clickCount);
+        //    }
+        //    else if (clickCount >= 20)
+        //    {
+        //        clickCount = 0;
+
+        //        FindNearObject("BindEnemy");
+        //        GameManager.isEnemyDie = true;
+        //        Destroy(enemy);
+
+        //        isBind = false;
+        //    }
+        //}
+
+        if (!isTouch && !isBind && !anim.GetBool("IsHurt"))
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -75,16 +101,34 @@ public class Player : MonoBehaviour
             }
             if (Input.GetMouseButtonUp(0))
             {
-                if (Input.mousePosition.y > mousePos.y + 5f)
+                if (Input.mousePosition.y > mousePos.y + 5f) //위로 터치 슬라이드 시 점프
                 {
                     isTouch = true;
                     Jump();
                 }
-                else
+                else //누르고 뗐을 때 공격
                 {
                     isTouch = true;
                     Attack();
                 }
+            }
+        }
+        else if(isBind) //묶여있는 상태
+        {
+            if (Input.GetMouseButtonDown(0) && clickCount < 20)
+            {
+                clickCount++;
+                //Debug.Log(clickCount);
+            }
+            else if(clickCount >= 20)
+            {
+                clickCount = 0;
+
+                FindNearObject("BindEnemy");
+                GameManager.isEnemyDie = true;
+                Destroy(enemy);
+
+                isBind = false;
             }
         }
     }
@@ -126,6 +170,10 @@ public class Player : MonoBehaviour
             anim.SetBool("IsHurt", true);
             Invoke("StopHurtAnim", 0.2f);
             hp -= 1;
+        }
+        if(collision.gameObject.tag == "BindEnemy")
+        {
+            isBind = true;
         }
     }
 

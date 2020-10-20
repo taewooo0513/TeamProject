@@ -5,6 +5,7 @@ using UnityEngine;
 public class MeleeEnemy : MonoBehaviour
 {
     public bool canGiant = false;
+    [Tooltip("거대화 가능 여부")]
 
     private Animator anim;
     private bool giantInCam = false;
