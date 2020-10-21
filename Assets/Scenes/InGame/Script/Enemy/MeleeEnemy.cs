@@ -27,7 +27,7 @@ public class MeleeEnemy : MonoBehaviour
         }
     }
 
-    void OnBecameVisible()
+    private void OnBecameVisible()
     {
         if (canGiant) giantInCam = true;
     }

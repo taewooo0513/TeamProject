@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     //적
     public static bool isEnemyDie = false;
 
+    public static List<GameObject> enemy = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {

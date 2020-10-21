@@ -31,14 +31,11 @@ public class RangedEnemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnBecameVisible()
     {
-        if(collision.gameObject.name == "CameraCollider")
-        {
-            anim.SetBool("IsAttack", true);
-            Invoke("StopAtkAnim", 0.2f);
-            Invoke("Fire", fireTime);
-        }
+        anim.SetBool("IsAttack", true);
+        Invoke("StopAtkAnim", 0.2f);
+        Invoke("Fire", fireTime);
     }
 
     void StopAtkAnim()

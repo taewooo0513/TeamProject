@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
     public float speed = 5;
     public float jump;
 
-    private GameObject enemy;
     private Animator anim;
     private SpriteRenderer sprRenderer;
 
@@ -85,9 +84,8 @@ public class Player : MonoBehaviour
         //    {
         //        clickCount = 0;
 
-        //        FindNearObject("BindEnemy");
         //        GameManager.isEnemyDie = true;
-        //        Destroy(enemy);
+        //        Destroy(GameManager.enemy[0]);
 
         //        isBind = false;
         //    }
@@ -118,15 +116,14 @@ public class Player : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && clickCount < 20)
             {
                 clickCount++;
-                //Debug.Log(clickCount);
             }
             else if(clickCount >= 20)
             {
                 clickCount = 0;
 
-                FindNearObject("BindEnemy");
                 GameManager.isEnemyDie = true;
-                Destroy(enemy);
+                Destroy(GameManager.enemy[0]);
+                GameManager.enemy.RemoveAt(0);
 
                 isBind = false;
             }
@@ -135,21 +132,13 @@ public class Player : MonoBehaviour
 
     void Attack()
     {
-        if (GameObject.FindGameObjectWithTag("Enemy") != null)
+        if (GameManager.enemy[0].gameObject != null)
         {
-            FindNearObject("Enemy");
-        }
-        else
-        {
-            enemy = null;
-        }
-
-        if (enemy != null)
-        {
-            if (transform.position.x < enemy.transform.position.x && enemy.transform.position.x <= transform.position.x + 1.8f)
+            if (transform.position.x < GameManager.enemy[0].transform.position.x && GameManager.enemy[0].transform.position.x <= transform.position.x + 1.8f)
             {
                 GameManager.isEnemyDie = true;
-                Destroy(enemy);
+                Destroy(GameManager.enemy[0]);
+                GameManager.enemy.RemoveAt(0);
             }
         }
 
@@ -196,26 +185,5 @@ public class Player : MonoBehaviour
     void EndTouch()
     {
         isTouch = false;
-    }
-
-    void FindNearObject(string Object)
-    {
-        /*가장 가까운 적 찾기*/
-        List<GameObject> FindEnemy = new List<GameObject>(GameObject.FindGameObjectsWithTag(Object));
-        float shortDis = Vector3.Distance(transform.position, FindEnemy[0].transform.position);
-        GameObject nearEnemy = FindEnemy[0];
-
-        foreach (GameObject found in FindEnemy)
-        {
-            float Distance = Vector3.Distance(transform.position, found.transform.position);
-
-            if (Distance < shortDis)
-            {
-                nearEnemy = found;
-                shortDis = Distance;
-            }
-        }
-        /**/
-        enemy = nearEnemy;
     }
 }
