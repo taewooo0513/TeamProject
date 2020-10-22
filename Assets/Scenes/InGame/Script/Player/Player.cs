@@ -122,8 +122,7 @@ public class Player : MonoBehaviour
                 clickCount = 0;
 
                 GameManager.isEnemyDie = true;
-                Destroy(GameManager.enemy[0]);
-                GameManager.enemy.RemoveAt(0);
+                Destroy(GameManager.enemy[0].gameObject);
 
                 isBind = false;
             }
@@ -132,13 +131,13 @@ public class Player : MonoBehaviour
 
     void Attack()
     {
-        if (GameManager.enemy[0].gameObject != null)
+        if(GameObject.FindGameObjectWithTag("Enemy") || )
+        if (GameManager.enemy[0] != null)
         {
             if (transform.position.x < GameManager.enemy[0].transform.position.x && GameManager.enemy[0].transform.position.x <= transform.position.x + 1.8f)
             {
                 GameManager.isEnemyDie = true;
-                Destroy(GameManager.enemy[0]);
-                GameManager.enemy.RemoveAt(0);
+                Destroy(GameManager.enemy[0].gameObject);
             }
         }
 
