@@ -6,7 +6,6 @@ public class Player : MonoBehaviour
 {
     [Header("Player status")]
     public int hp = 3;
-    [Space(2f)]
     public float speed = 5;
     public float jump;
 
@@ -84,7 +83,6 @@ public class Player : MonoBehaviour
         //    {
         //        clickCount = 0;
 
-        //        GameManager.isEnemyDie = true;
         //        Destroy(GameManager.enemy[0]);
 
         //        isBind = false;
@@ -111,18 +109,17 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        else if(isBind) //묶여있는 상태
+        else if (isBind) //묶여있는 상태
         {
             if (Input.GetMouseButtonDown(0) && clickCount < 20)
             {
                 clickCount++;
             }
-            else if(clickCount >= 20)
+            else if (clickCount >= 20)
             {
                 clickCount = 0;
 
-                GameManager.isEnemyDie = true;
-                Destroy(GameManager.enemy[0].gameObject);
+                GameManager.enemy[0].GetComponent<MeleeEnemy>().hp -= 1;
 
                 isBind = false;
             }
@@ -131,13 +128,18 @@ public class Player : MonoBehaviour
 
     void Attack()
     {
-        if(GameObject.FindGameObjectWithTag("Enemy") || )
         if (GameManager.enemy[0] != null)
         {
             if (transform.position.x < GameManager.enemy[0].transform.position.x && GameManager.enemy[0].transform.position.x <= transform.position.x + 1.8f)
             {
-                GameManager.isEnemyDie = true;
-                Destroy(GameManager.enemy[0].gameObject);
+                if (GameManager.enemy[0].tag == "MeleeEnemy")
+                {
+                    GameManager.enemy[0].GetComponent<MeleeEnemy>().hp -= 1;
+                }
+                else if (GameManager.enemy[0].tag == "RangedEnemy")
+                {
+                    GameManager.enemy[0].GetComponent<RangedEnemy>().hp -= 1;
+                }
             }
         }
 
@@ -153,13 +155,13 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!anim.GetBool("IsHurt") && (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Bullet"))
+        if (!anim.GetBool("IsHurt") && (collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RangedEnemy" || collision.gameObject.tag == "Bullet"))
         {
             anim.SetBool("IsHurt", true);
             Invoke("StopHurtAnim", 0.2f);
             hp -= 1;
         }
-        if(collision.gameObject.tag == "BindEnemy")
+        if (collision.gameObject.tag == "BindEnemy")
         {
             isBind = true;
         }

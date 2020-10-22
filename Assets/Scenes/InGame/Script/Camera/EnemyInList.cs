@@ -17,7 +17,7 @@ public class EnemyInList : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "BindEnemy")
+        if (collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RangedEnemy" || collision.gameObject.tag == "BindEnemy")
         {
             GameManager.enemy.Add(collision.gameObject);
         }
@@ -25,7 +25,7 @@ public class EnemyInList : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "BindEnemy")
+        if (collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RangedEnemy" || collision.gameObject.tag == "BindEnemy")
         {
             GameManager.enemy.Remove(collision.gameObject);
         }

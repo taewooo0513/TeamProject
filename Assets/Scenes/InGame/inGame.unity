@@ -306,7 +306,7 @@ GameObject:
   - component: {fileID: 240884031}
   m_Layer: 0
   m_Name: Frog
-  m_TagString: Enemy
+  m_TagString: RangedEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -389,6 +389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b10bd067913ef041ba6c31c2508dde1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 1
   bullet: {fileID: 102242466614138112, guid: 8e477d57e89a52744a661726d59d4b86, type: 3}
   firePos: {fileID: 1305678269}
   fireCount: 1
@@ -646,7 +647,7 @@ GameObject:
   - component: {fileID: 828964704}
   m_Layer: 0
   m_Name: Eagle
-  m_TagString: Enemy
+  m_TagString: MeleeEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -794,6 +795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f15bb38b36e43543ab33625219fd375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 1
   canGiant: 0
 --- !u!1 &853234292
 GameObject:
@@ -881,7 +883,7 @@ GameObject:
   - component: {fileID: 973247384}
   m_Layer: 0
   m_Name: Gangster
-  m_TagString: Enemy
+  m_TagString: MeleeEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -898,6 +900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f15bb38b36e43543ab33625219fd375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 1
   canGiant: 1
 --- !u!95 &973247385
 Animator:
@@ -1063,6 +1066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f15bb38b36e43543ab33625219fd375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 1
   canGiant: 0
 --- !u!95 &1157037755
 Animator:
@@ -1211,7 +1215,7 @@ GameObject:
   - component: {fileID: 1247901897}
   m_Layer: 0
   m_Name: Eagle (1)
-  m_TagString: Enemy
+  m_TagString: MeleeEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1228,6 +1232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f15bb38b36e43543ab33625219fd375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 1
   canGiant: 0
 --- !u!95 &1247901898
 Animator:

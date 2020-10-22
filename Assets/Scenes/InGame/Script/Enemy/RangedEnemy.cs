@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RangedEnemy : MonoBehaviour
 {
+    public int hp = 1;
+    [Space (3f)]
     [Header("Bullet")]
     public GameObject bullet; //총알
     public Transform firePos; //발사 위치
@@ -19,28 +21,16 @@ public class RangedEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    private void OnDestroy()
-    {
-        if(GameManager.isEnemyDie)
+        if (hp <= 0)
         {
-            //애니메이션
-            GameManager.isEnemyDie = false;
+            Destroy(gameObject);
         }
     }
 
     private void OnBecameVisible()
     {
-        anim.SetBool("IsAttack", true);
-        Invoke("StopAtkAnim", 0.2f);
+        anim.SetTrigger("IsAttack");
         Invoke("Fire", fireTime);
-    }
-
-    void StopAtkAnim()
-    {
-        anim.SetBool("IsAttack", false);
     }
     
     void Fire()

@@ -17,11 +17,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //플레이어
     public static bool isPlayerDie = false;
-
-    //적
-    public static bool isEnemyDie = false;
 
     public static List<GameObject> enemy = new List<GameObject>();
 
