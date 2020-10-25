@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
     public float jump;
 
     private Animator anim;
-    private SpriteRenderer sprRenderer;
 
     private bool isTouch = false;
     private bool isBind = false;
@@ -22,7 +21,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
-        sprRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -153,12 +151,13 @@ public class Player : MonoBehaviour
         Invoke("StopJumpAnim", 0.4f);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!anim.GetBool("IsHurt") && (collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RangedEnemy" || collision.gameObject.tag == "Bullet"))
         {
             anim.SetBool("IsHurt", true);
             Invoke("StopHurtAnim", 0.2f);
+            GameObject.Find("Main Camera").GetComponent<Camera>().shakeTime = 0.5f;
             hp -= 1;
         }
         if (collision.gameObject.tag == "BindEnemy")
