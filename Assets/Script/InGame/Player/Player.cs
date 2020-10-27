@@ -7,15 +7,15 @@ public class Player : MonoBehaviour
     [Header("Player status")]
     public int hp = 3;
     public float speed = 5;
-    public float jump;
-
+    private float jump;
+    
     private Animator anim;
 
     private bool isTouch = false;
     private bool isBind = false;
 
     private Vector2 mousePos;
-    private int clickCount;
+    private int clickCount, curClickCount;
 
     // Start is called before the first frame update
     void Start()
@@ -103,19 +103,22 @@ public class Player : MonoBehaviour
                 else //누르고 뗐을 때 공격
                 {
                     isTouch = true;
+                    if(GameManager.enemy[0].gameObject != null)
                     Attack();
                 }
             }
         }
         else if (isBind) //묶여있는 상태
         {
-            if (Input.GetMouseButtonDown(0) && clickCount < 20)
+            if (Input.GetMouseButtonDown(0) && curClickCount < clickCount)
             {
-                clickCount++;
+                curClickCount++;
+                GameObject.Find("Main Camera").GetComponent<Camera>().shakePower = 0.03f;
+                GameObject.Find("Main Camera").GetComponent<Camera>().shakeTime = 0.3f;
             }
-            else if (clickCount >= 20)
+            else if (curClickCount >= clickCount)
             {
-                clickCount = 0;
+                curClickCount = 0;
 
                 GameManager.enemy[0].GetComponent<MeleeEnemy>().hp -= 1;
 
@@ -126,8 +129,6 @@ public class Player : MonoBehaviour
 
     void Attack()
     {
-        if (GameManager.enemy[0] != null)
-        {
             if (transform.position.x < GameManager.enemy[0].transform.position.x && GameManager.enemy[0].transform.position.x <= transform.position.x + 1.8f)
             {
                 if (GameManager.enemy[0].tag == "MeleeEnemy")
@@ -139,7 +140,6 @@ public class Player : MonoBehaviour
                     GameManager.enemy[0].GetComponent<RangedEnemy>().hp -= 1;
                 }
             }
-        }
 
         anim.SetBool("IsAttack", true);
         Invoke("StopAtkAnim", 0.15f);
@@ -149,30 +149,43 @@ public class Player : MonoBehaviour
     {
         anim.SetBool("IsJump", true);
         Invoke("StopJumpAnim", 0.4f);
+
+        jump = 6;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void Hurt()
+    {
+        anim.SetBool("IsHurt", true);
+        Invoke("StopHurtAnim", 0.2f);
+        GameObject.Find("Main Camera").GetComponent<Camera>().shakePower = 0.05f;
+        GameObject.Find("Main Camera").GetComponent<Camera>().shakeTime = 0.5f;
+        hp -= 1;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!anim.GetBool("IsHurt") && (collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RangedEnemy" || collision.gameObject.tag == "Bullet"))
         {
-            anim.SetBool("IsHurt", true);
-            Invoke("StopHurtAnim", 0.2f);
-            GameObject.Find("Main Camera").GetComponent<Camera>().shakeTime = 0.5f;
-            hp -= 1;
+            Hurt();
         }
         if (collision.gameObject.tag == "BindEnemy")
         {
             isBind = true;
+            clickCount = collision.gameObject.GetComponent<MeleeEnemy>().bindCount;
+            Invoke("BindDamaged", collision.gameObject.GetComponent<MeleeEnemy>().bindTime);
         }
     }
 
+    //애니메이션 끝내는 함수
     void StopHurtAnim()
     {
         anim.SetBool("IsHurt", false);
     }
-    void StopJumpAnim()
+void StopJumpAnim()
     {
         anim.SetBool("IsJump", false);
+
+        jump = 0;
 
         EndTouch();
     }
@@ -182,8 +195,18 @@ public class Player : MonoBehaviour
 
         Invoke("EndTouch", 0.4f);
     }
+    
     void EndTouch()
     {
         isTouch = false;
+    }
+    
+    void BindDamaged()
+    {
+        if(isBind)
+        {
+            Hurt();
+            isBind = false;
+        }
     }
 }

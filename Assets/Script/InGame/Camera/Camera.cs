@@ -11,7 +11,8 @@ public class Camera : MonoBehaviour
 
     [HideInInspector]
     public float shakeTime; //흔드는 시간
-    private float shakePower = 0.05f; //흔드는 힘
+    [HideInInspector]
+    public float shakePower; //흔드는 힘
     private Vector3 pos;
 
     // Start is called before the first frame update
