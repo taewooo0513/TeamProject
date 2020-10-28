@@ -12,7 +12,8 @@ public class Player : MonoBehaviour
     private Animator anim;
 
     private bool isTouch = false;
-    private bool isBind = false;
+    private bool isJump  = false;
+    private bool isBind  = false;
 
     private Vector2 mousePos;
     private int clickCount, curClickCount;
@@ -95,7 +96,7 @@ public class Player : MonoBehaviour
             }
             if (Input.GetMouseButtonUp(0))
             {
-                if (Input.mousePosition.y > mousePos.y + 5f) //위로 터치 슬라이드 시 점프
+                if (Input.mousePosition.y > mousePos.y + 5f && !isJump) //위로 터치 슬라이드 시 점프
                 {
                     isTouch = true;
                     Jump();
@@ -173,6 +174,22 @@ public class Player : MonoBehaviour
             isBind = true;
             clickCount = collision.gameObject.GetComponent<MeleeEnemy>().bindCount;
             Invoke("BindDamaged", collision.gameObject.GetComponent<MeleeEnemy>().bindTime);
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if(collision.gameObject.name == "Ground")
+        {
+            isJump = false;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.name == "Ground")
+        {
+            isJump = true;
         }
     }
 

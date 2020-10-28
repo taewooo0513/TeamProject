@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangedEnemy : MonoBehaviour
+public class ChasingEnemy : MonoBehaviour
 {
     public int hp = 1;
 
@@ -15,37 +15,35 @@ public class RangedEnemy : MonoBehaviour
 
     private Animator anim;
 
-    private int count;
-
+    // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
+
+        InvokeRepeating("Fire", fireTime, fireDelay);
     }
+
     // Update is called once per frame
     void Update()
     {
+        transform.Translate(GameObject.FindWithTag("Player").GetComponent<Player>().speed * Time.deltaTime, 0, 0);
+
         if (hp <= 0)
         {
             Destroy(gameObject);
         }
     }
 
-    private void OnBecameVisible()
+    private void Fire()
     {
-        anim.SetTrigger("IsAttack");
-        InvokeRepeating("Fire", fireTime, fireDelay);
+        Instantiate(bullet, firePos.transform.position, firePos.transform.rotation);
     }
-    
-    void Fire()
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(count < fireCount)
+        if(collision.gameObject.tag == "MeleeEnemy")
         {
-            Instantiate(bullet, firePos.transform.position, firePos.transform.rotation);
-            count++;
-        }
-        else
-        {
-            CancelInvoke("Fire");
+            hp--;
         }
     }
 }
