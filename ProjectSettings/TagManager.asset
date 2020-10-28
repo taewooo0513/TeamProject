@@ -8,6 +8,9 @@ TagManager:
   - BindEnemy
   - MeleeEnemy
   - RangedEnemy
+  - Chack
+  - Chack1
+  - Chack2
   layers:
   - Default
   - TransparentFX
