@@ -150,7 +150,7 @@ public class Player : MonoBehaviour
         anim.SetBool("IsJump", true);
         Invoke("StopJumpAnim", 0.4f);
 
-        jump = 6;
+        jump = 8;
     }
 
     void Hurt()
