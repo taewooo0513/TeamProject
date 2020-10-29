@@ -217,11 +217,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 36755118}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3, y: 0, z: 0}
+  m_LocalPosition: {x: -4.62, y: 0, z: 0}
   m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &36755122
 Rigidbody2D:
@@ -305,7 +305,7 @@ GameObject:
   - component: {fileID: 240884028}
   m_Layer: 0
   m_Name: Frog
-  m_TagString: RangedEnemy
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -374,7 +374,7 @@ Transform:
   m_Children:
   - {fileID: 1305678269}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &240884028
 MonoBehaviour:
@@ -385,14 +385,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 240884025}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b10bd067913ef041ba6c31c2508dde1, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f15bb38b36e43543ab33625219fd375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kind: 4
   hp: 1
+  bindTime: 0
+  bindCount: 0
+  runDis: 0
   bullet: {fileID: 102242466614138112, guid: 8e477d57e89a52744a661726d59d4b86, type: 3}
   firePos: {fileID: 1305678269}
   fireCount: 1
   fireTime: 0
+  fireDelay: 0
 --- !u!61 &240884029
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -627,7 +632,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children:
   - {fileID: 315458540}
-  - {fileID: 853234293}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -647,7 +651,7 @@ GameObject:
   - component: {fileID: 828964704}
   m_Layer: 0
   m_Name: Eagle
-  m_TagString: MeleeEnemy
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -781,7 +785,7 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &828964704
 MonoBehaviour:
@@ -795,80 +799,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f15bb38b36e43543ab33625219fd375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kind: 0
   hp: 1
   bindTime: 0
   bindCount: 0
-  canGiant: 0
---- !u!1 &853234292
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 853234293}
-  - component: {fileID: 853234294}
-  - component: {fileID: 853234295}
-  m_Layer: 0
-  m_Name: EnemyInList
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &853234293
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 853234292}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
-  m_Children: []
-  m_Father: {fileID: 519420032}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &853234294
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 853234292}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 1.2992733, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 17.910994, y: 9.992668}
-  m_EdgeRadius: 0
---- !u!114 &853234295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 853234292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ce7d1bad534e4142935fbfbdde1e7f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  runDis: 0
+  bullet: {fileID: 0}
+  firePos: {fileID: 0}
+  fireCount: 1
+  fireTime: 0
+  fireDelay: 0
 --- !u!1 &973247383
 GameObject:
   m_ObjectHideFlags: 0
@@ -902,10 +842,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f15bb38b36e43543ab33625219fd375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kind: 0
   hp: 1
   bindTime: 0
   bindCount: 0
-  canGiant: 1
+  runDis: 0
+  bullet: {fileID: 0}
+  firePos: {fileID: 0}
+  fireCount: 1
+  fireTime: 0
+  fireDelay: 0
 --- !u!95 &973247385
 Animator:
   serializedVersion: 3
@@ -1035,7 +981,7 @@ Transform:
   m_LocalScale: {x: 0.8, y: 0.8, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1157037753
 GameObject:
@@ -1070,10 +1016,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f15bb38b36e43543ab33625219fd375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kind: 0
   hp: 1
   bindTime: 5
-  bindCount: 100
-  canGiant: 0
+  bindCount: 20
+  runDis: 0
+  bullet: {fileID: 0}
+  firePos: {fileID: 0}
+  fireCount: 1
+  fireTime: 0
+  fireDelay: 0
 --- !u!95 &1157037755
 Animator:
   serializedVersion: 3
@@ -1203,7 +1155,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1212423565
 GameObject:
@@ -1217,7 +1169,7 @@ GameObject:
   - component: {fileID: 1212423567}
   - component: {fileID: 1212423566}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1312,7 +1264,7 @@ Transform:
   m_LocalScale: {x: 11.078438, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1305678268
 GameObject:

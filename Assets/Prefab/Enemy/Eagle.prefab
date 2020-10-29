@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 1096030251747702727}
   - component: {fileID: 1096030251747702726}
   - component: {fileID: 1096030251747702720}
-  - component: {fileID: 1096030251747702779}
+  - component: {fileID: 3927889044117763910}
   m_Layer: 0
   m_Name: Eagle
-  m_TagString: MeleeEnemy
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,7 +152,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1096030251747702779
+--- !u!114 &3927889044117763910
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,7 +164,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f15bb38b36e43543ab33625219fd375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kind: 0
   hp: 1
   bindTime: 0
   bindCount: 0
-  canGiant: 0
+  runDis: 0
+  bullet: {fileID: 0}
+  firePos: {fileID: 0}
+  fireCount: 1
+  fireTime: 0
+  fireDelay: 0

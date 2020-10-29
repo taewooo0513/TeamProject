@@ -18,7 +18,7 @@ public class DestroyObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Bullet" || collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RangedEnemy" || collision.gameObject.tag == "BindEnemy")
+        if(collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("BindEnemy"))
         {
             Destroy(collision.gameObject);
         }

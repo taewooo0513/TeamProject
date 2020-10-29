@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 6207212594043174038}
   - component: {fileID: 6207212594043174037}
   - component: {fileID: 6207212594043174036}
-  - component: {fileID: 6207212594043174039}
+  - component: {fileID: 5926849921034165214}
   m_Layer: 0
   m_Name: Frog
-  m_TagString: RangedEnemy
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -153,7 +153,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6207212594043174039
+--- !u!114 &5926849921034165214
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,14 +162,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 6207212594043174034}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b10bd067913ef041ba6c31c2508dde1, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f15bb38b36e43543ab33625219fd375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kind: 4
   hp: 1
+  bindTime: 0
+  bindCount: 0
+  runDis: 0
   bullet: {fileID: 102242466614138112, guid: 8e477d57e89a52744a661726d59d4b86, type: 3}
   firePos: {fileID: 6207212595142636566}
   fireCount: 1
   fireTime: 0
+  fireDelay: 0
 --- !u!1 &6207212595142636567
 GameObject:
   m_ObjectHideFlags: 0
