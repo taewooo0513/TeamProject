@@ -9,8 +9,6 @@ public class Camera : MonoBehaviour
 
     private GameObject player;
 
-    private float sOffsetX;
-
     [HideInInspector]
     public float shakeTime; //흔드는 시간
     [HideInInspector]
@@ -21,8 +19,6 @@ public class Camera : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
-
-        sOffsetX = offsetX;
     }
 
     // Update is called once per frame

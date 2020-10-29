@@ -83,7 +83,7 @@ public class Enemy : MonoBehaviour
                 break;
                 
             case EnemyKind.CHASING:
-                GameObject.FindWithTag("MainCamera").GetComponent<Camera>().offsetX = -7;
+                GameObject.FindWithTag("MainCamera").GetComponent<Camera>().offsetX = -GameObject.FindWithTag("MainCamera").GetComponent<Camera>().offsetX;
                 break;
 
             case EnemyKind.RANGED:
@@ -98,7 +98,7 @@ public class Enemy : MonoBehaviour
         switch(kind)
         {
             case EnemyKind.CHASING:
-                GameObject.FindWithTag("MainCamera").GetComponent<Camera>().offsetX = 7;
+                GameObject.FindWithTag("MainCamera").GetComponent<Camera>().offsetX = -GameObject.FindWithTag("MainCamera").GetComponent<Camera>().offsetX;
                 break;
         }
     }
