@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class servMenu : MonoBehaviour
 {
     private bool IsMenue = false;
@@ -13,7 +14,10 @@ public class servMenu : MonoBehaviour
     {
        
     }
-
+    public void Return()
+    {
+        SceneManager.LoadScene("MapLevel");
+    }
     public void menu()
     {
 
