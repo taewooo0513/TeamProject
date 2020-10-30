@@ -24,7 +24,7 @@ public class Camera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(player.transform.position.x + offsetX, player.transform.position.y + offsetY, player.transform.position.z - 5);
+        transform.position = new Vector3(player.transform.position.x + offsetX, 0, player.transform.position.z - 5);
 
         if (shakeTime > 0)
         {
@@ -34,7 +34,7 @@ public class Camera : MonoBehaviour
 
     public void CameraShake()
     {
-        pos = new Vector3(player.transform.position.x + offsetX, player.transform.position.y + offsetY, player.transform.position.z - 5);
+        pos = new Vector3(player.transform.position.x + offsetX, 0, player.transform.position.z - 5);
 
         transform.position = Random.insideUnitSphere * shakePower + pos;
         shakeTime -= Time.deltaTime;

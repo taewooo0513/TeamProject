@@ -45,11 +45,10 @@ public class Enemy : MonoBehaviour
     {
         anim = GetComponent<Animator>();
 
+        firHp = hp;
+
         switch (kind)
         {
-            case EnemyKind.RUNNER:
-                firHp = hp;
-                break;
             case EnemyKind.CHASING:
                 InvokeRepeating("Fire", fireTime, fireDelay);
                 break;
@@ -58,7 +57,13 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if (hp <= 0)
+        if (hp < firHp)
+        {
+            anim.SetTrigger("IsHurt");
+            Debug.Log("D");
+            firHp = hp;
+        }
+            if (hp <= 0)
         {
             Destroy(this.gameObject);
         }
