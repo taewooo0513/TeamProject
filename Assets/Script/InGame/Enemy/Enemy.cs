@@ -36,8 +36,10 @@ public class Enemy : MonoBehaviour
     public float fireDelay;   //발사 딜레이
 
     private Animator anim;
+    private Vector2 sPos;
 
     private bool giantInCam;
+    private bool chk;
     private int firHp;
     private int count;
 
@@ -52,22 +54,14 @@ public class Enemy : MonoBehaviour
             case EnemyKind.CHASING:
                 InvokeRepeating("Fire", fireTime, fireDelay);
                 break;
+            case EnemyKind.RUNNER:
+                sPos = transform.position;
+                break;
         }
     }
 
     void Update()
     {
-        if (hp < firHp)
-        {
-            anim.SetTrigger("IsHurt");
-            Debug.Log("D");
-            firHp = hp;
-        }
-            if (hp <= 0)
-        {
-            Destroy(this.gameObject);
-        }
-
         switch (kind)
         {
             case EnemyKind.GIANT:
@@ -76,6 +70,17 @@ public class Enemy : MonoBehaviour
             case EnemyKind.RUNNER:
                 Runner();
                 break;
+        }
+
+        if (hp < firHp)
+        {
+            anim.SetTrigger("IsHurt");
+            firHp = hp;
+        }
+
+        if (hp <= 0)
+        {
+            Destroy(this.gameObject);
         }
     }
 
@@ -130,8 +135,22 @@ public class Enemy : MonoBehaviour
     {
         if (hp < firHp)
         {
+            anim.SetTrigger("IsHurt");
+            chk = true;
             firHp = hp;
-            transform.Translate(transform.position.x + runDis, 0, 0);
+        }
+
+        if(chk)
+        {
+            if(transform.position.x > sPos.x + runDis)
+            {
+                sPos = transform.position;
+                chk = false;
+            }
+            else
+            {
+                transform.Translate(GameObject.FindWithTag("Player").GetComponent<Player>().speed * Time.deltaTime, 0, 0);
+            }
         }
     }
     private void Chasing()
