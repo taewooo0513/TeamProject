@@ -6,16 +6,18 @@ using UnityEngine.AI;
 public class tutorialManager : MonoBehaviour
 {
     private GameObject player;
+    private Player PlayerS;
     int count = 0;
     public GameObject toggi;
     public GameObject lol;
     public bool UP = false;
     private bool IsPause =false;
-
+    public int num;  
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindWithTag("Player");
+        PlayerS = GameObject.FindWithTag("Player").GetComponent<Player>();
     }
     // Update is called once per frame
     void tap()
@@ -33,7 +35,7 @@ public class tutorialManager : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonUp(0))
         {
             toggi.SetActive(false);
             lol.SetActive(false);
@@ -52,19 +54,11 @@ public class tutorialManager : MonoBehaviour
         count = 0;
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("on");
+            PlayerS.isTouch = false;
             tap();
             toggi.SetActive(true);
         }
-        if (collision.gameObject.CompareTag("Chack1"))
-        {
-            tap();
-            lol.SetActive(true);
-        }
-        if (collision.gameObject.CompareTag("Chack2"))
-        {
-            tap();
-        }
+        
     }
   
 

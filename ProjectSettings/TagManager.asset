@@ -5,11 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bullet
-  - Chack
-  - Chack1
-  - Chack2
   - Enemy
   - BindEnemy
+  - MeleeEnemy
+  - CheckBox
   layers:
   - Default
   - TransparentFX

@@ -8,19 +8,21 @@ public class Player : MonoBehaviour
     public int hp = 3;
     public float speed = 5;
     private float jump;
-
     private Animator anim;
 
-    private bool isTouch;
+    public bool isTouch;
     private bool isJump;
     private bool isBind;
-
+    private MapScroll Mscoll;
+    private GameObject Map;
     private Vector2 mousePos;
     private int clickCount, curClickCount;
     // Start is called before the first frame update
     void Start()
     {
+
         anim = GetComponent<Animator>();
+        Mscoll = GameObject.Find("Map").GetComponent<MapScroll>();
     }
 
     // Update is called once per frame
@@ -80,7 +82,7 @@ public class Player : MonoBehaviour
         //    else if (clickCount >= 20)
         //    {
         //        clickCount = 0;
-        
+
 
         //        isBind = false;
         //    }
@@ -110,8 +112,10 @@ public class Player : MonoBehaviour
         }
         else if (isBind) //묶여있는 상태
         {
+            Mscoll.CurSpeed = 0;
             if (Input.GetMouseButtonDown(0) && curClickCount < clickCount)
             {
+
                 curClickCount++;
                 GameObject.Find("Main Camera").GetComponent<Camera>().shakePower = 0.03f;
                 GameObject.Find("Main Camera").GetComponent<Camera>().shakeTime = 0.3f;
@@ -119,7 +123,8 @@ public class Player : MonoBehaviour
             else if (curClickCount >= clickCount)
             {
                 curClickCount = 0;
-
+                Mscoll.CurSpeed = Mscoll.speed;
+                
                 isBind = false;
             }
         }
@@ -127,7 +132,7 @@ public class Player : MonoBehaviour
 
     void Attack()
     {
-        anim.SetBool("IsAttack",true);
+        anim.SetBool("IsAttack", true);
         Invoke("StopAtk", 0.15f);
     }
 
@@ -152,7 +157,7 @@ public class Player : MonoBehaviour
     {
         if (!anim.GetBool("IsHurt") && (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Bullet")))
         {
-            if(anim.GetBool("IsAttack"))
+            if (anim.GetBool("IsAttack"))
             {
                 collision.gameObject.GetComponent<Enemy>().hp--;
             }
@@ -193,7 +198,7 @@ public class Player : MonoBehaviour
     void StopAtk()
     {
         anim.SetBool("IsAttack", false);
-        Invoke("EndTouch", 0.4f);
+        Invoke("EndTouch", 0.55f);
     }
     void StopJump()
     {
@@ -212,6 +217,7 @@ public class Player : MonoBehaviour
         if (isBind)
         {
             Hurt();
+            Mscoll.CurSpeed = Mscoll.speed;
             isBind = false;
         }
     }
