@@ -11,8 +11,8 @@ public class tutorialManager : MonoBehaviour
     public GameObject toggi;
     public GameObject lol;
     public bool UP = false;
-    private bool IsPause =false;
-    public int num;  
+    private bool IsPause = false;
+    public int num;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,10 +56,11 @@ public class tutorialManager : MonoBehaviour
         {
             PlayerS.isTouch = false;
             tap();
-            toggi.SetActive(true);
+            
         }
         
     }
-  
+   
+
 
 }

@@ -1176,7 +1176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5448030906412729285, guid: e7e8034006d5bdd43b61b302f4e3939b, type: 3}
       propertyPath: m_Name
-      value: Ground 1
+      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7e8034006d5bdd43b61b302f4e3939b, type: 3}
@@ -2173,7 +2173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1282636013159680991, guid: 78322879cf93da041b7e8cabdb419910, type: 3}
       propertyPath: speed
-      value: 5
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 1282636013159680991, guid: 78322879cf93da041b7e8cabdb419910, type: 3}
       propertyPath: jump
@@ -2520,11 +2520,11 @@ PrefabInstance:
       objectReference: {fileID: 1725704693}
     - target: {fileID: 4098568218290003809, guid: c00da970214a5bf4eb8082292134da88, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.55325747
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4098568218290003809, guid: c00da970214a5bf4eb8082292134da88, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.98
+      value: 0.94
       objectReference: {fileID: 0}
     - target: {fileID: 4098568218290003809, guid: c00da970214a5bf4eb8082292134da88, type: 3}
       propertyPath: m_LocalPosition.z

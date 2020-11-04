@@ -6,10 +6,10 @@ public class Player : MonoBehaviour
 {
     [Header("Player status")]
     public int hp = 3;
-    public float speed = 5;
+    public float speed = 8;
     private float jump;
     private Animator anim;
-
+    private float MoveSpeed;
     public bool isTouch;
     private bool isJump;
     private bool isBind;
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        MoveSpeed = speed;
         anim = GetComponent<Animator>();
         Mscoll = GameObject.Find("Map").GetComponent<MapScroll>();
     }
