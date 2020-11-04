@@ -7,16 +7,22 @@ public class Player : MonoBehaviour
     [Header("Player status")]
     public int hp = 3;
     public float speed = 8;
-    private float jump;
+
     private Animator anim;
+
     private float MoveSpeed;
+    private float jump;
+
     public bool isTouch;
     private bool isJump;
     private bool isBind;
-    private MapScroll Mscoll;
+
     private GameObject Map;
+    private MapScroll Mscoll;
+
     private Vector2 mousePos;
     private int clickCount, curClickCount;
+
     // Start is called before the first frame update
     void Start()
     {

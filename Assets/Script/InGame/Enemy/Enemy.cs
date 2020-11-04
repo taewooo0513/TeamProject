@@ -25,8 +25,12 @@ public class Enemy : MonoBehaviour
     public int bindCount;
 
     [Header("Runner Enemy")]
-    [Tooltip("도망가는 거리")]
+    [Tooltip("맞으면 도망가는 적")]
+    public bool beHitRun;
+    [Tooltip("도망가는 거리 (beHitRun이 true일 경우에만 사용)")]
     public float runDis;
+    [Tooltip("도망가는 속도")]
+    public int runSpeed;
 
     [Header("Ranged Enemy")]
     public GameObject bullet; //총알
@@ -69,6 +73,9 @@ public class Enemy : MonoBehaviour
                 break;
             case EnemyKind.RUNNER:
                 Runner();
+                break;
+            case EnemyKind.CHASING:
+                Chasing();
                 break;
         }
 
@@ -133,23 +140,38 @@ public class Enemy : MonoBehaviour
     }
     private void Runner()
     {
-        if (hp < firHp)
+        if (beHitRun)
         {
-            anim.SetTrigger("IsHurt");
-            chk = true;
-            firHp = hp;
-        }
-
-        if(chk)
-        {
-            if(transform.position.x > sPos.x + runDis)
+            if (hp < firHp)
             {
-                sPos = transform.position;
-                chk = false;
+                anim.SetTrigger("IsHurt");
+                chk = true;
+                firHp = hp;
             }
-            else
+
+            if (chk)
             {
-                transform.Translate(GameObject.FindWithTag("Player").GetComponent<Player>().speed * Time.deltaTime, 0, 0);
+                if (transform.position.x > sPos.x + runDis)
+                {
+                    sPos = transform.position;
+                    chk = false;
+                }
+                else
+                {
+                    transform.Translate((GameObject.FindWithTag("Player").GetComponent<Player>().speed + runSpeed) * Time.deltaTime, 0, 0);
+                }
+            }
+        }
+        else
+        {
+            if (GameObject.FindWithTag("Player").transform.position.x > transform.position.x - 8)
+            {
+                chk = true;
+            }
+
+            if(chk)
+            {
+                transform.Translate((GameObject.FindWithTag("Player").GetComponent<Player>().speed - runSpeed) * Time.deltaTime, 0, 0);
             }
         }
     }
