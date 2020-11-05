@@ -19,7 +19,7 @@ public class MapScroll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.position = new Vector3(PlayerPos.transform.position.x+5,1,1);
+        gameObject.transform.position = new Vector3(PlayerPos.transform.position.x-2,1,1);
         offset += Time.deltaTime * CurSpeed;
         render.material.mainTextureOffset = new Vector2(offset, 0);
     }

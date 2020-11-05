@@ -98,10 +98,6 @@ public class Enemy : MonoBehaviour
             case EnemyKind.GIANT:
                 giantInCam = true;
                 break;
-                
-            case EnemyKind.CHASING:
-                GameObject.FindWithTag("MainCamera").GetComponent<Camera>().offsetX = -GameObject.FindWithTag("MainCamera").GetComponent<Camera>().offsetX;
-                break;
 
             case EnemyKind.RANGED:
                 anim.SetTrigger("IsAttack");

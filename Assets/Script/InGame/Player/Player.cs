@@ -103,15 +103,14 @@ public class Player : MonoBehaviour
             }
             if (Input.GetMouseButtonUp(0))
             {
+                isTouch = true;
 
                 if (Input.mousePosition.y > mousePos.y + 5f && !isJump) //위로 터치 슬라이드 시 점프
                 {
                     Jump();
-                    isTouch = true;
                 }
                 else //누르고 뗐을 때 공격
                 {
-                    isTouch = true;
                     Attack();
                 }
             }
@@ -139,7 +138,7 @@ public class Player : MonoBehaviour
     void Attack()
     {
         anim.SetTrigger("IsAttack");
-        Invoke("StopAtk", 0.36f);
+        Invoke("StopAtk", 0.7f);
     }
 
     void Jump()
