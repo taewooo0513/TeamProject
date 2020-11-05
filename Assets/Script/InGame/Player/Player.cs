@@ -138,8 +138,8 @@ public class Player : MonoBehaviour
 
     void Attack()
     {
-        anim.SetBool("IsAttack", true);
-        Invoke("StopAtk", 0.15f);
+        anim.SetTrigger("IsAttack");
+        Invoke("StopAtk", 0.36f);
     }
 
     void Jump()
@@ -163,11 +163,12 @@ public class Player : MonoBehaviour
     {
         if (!anim.GetBool("IsHurt") && (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Bullet")))
         {
-            if (anim.GetBool("IsAttack"))
+            if (isTouch && !isJump)
             {
                 collision.gameObject.GetComponent<Enemy>().hp--;
+                isTouch = false;
             }
-            else
+            else if(!isTouch)
             {
                 Hurt();
             }
@@ -203,19 +204,13 @@ public class Player : MonoBehaviour
     }
     void StopAtk()
     {
-        anim.SetBool("IsAttack", false);
-        Invoke("EndTouch", 0.55f);
+        isTouch = false;
     }
     void StopJump()
     {
         isTouch = false;
 
         jump = 0;
-    }
-
-    void EndTouch()
-    {
-        isTouch = false;
     }
 
     void BindDamaged()
