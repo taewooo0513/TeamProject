@@ -165,11 +165,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f15bb38b36e43543ab33625219fd375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kind: 4
+  kind: 3
   hp: 1
   bindTime: 0
   bindCount: 0
+  beHitRun: 0
   runDis: 0
+  runSpeed: 0
   bullet: {fileID: 102242466614138112, guid: 8e477d57e89a52744a661726d59d4b86, type: 3}
   firePos: {fileID: 6207212595142636566}
   fireCount: 1

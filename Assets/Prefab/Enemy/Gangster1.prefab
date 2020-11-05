@@ -168,7 +168,9 @@ MonoBehaviour:
   hp: 1
   bindTime: 0
   bindCount: 0
+  beHitRun: 0
   runDis: 0
+  runSpeed: 0
   bullet: {fileID: 0}
   firePos: {fileID: 0}
   fireCount: 1
