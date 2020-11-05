@@ -96,7 +96,6 @@ public class Player : MonoBehaviour
 
         if (!isTouch && !isBind && !anim.GetBool("IsHurt"))
         {
-
             if (Input.GetMouseButtonDown(0))
             {
                 mousePos = Input.mousePosition;
@@ -138,7 +137,7 @@ public class Player : MonoBehaviour
     void Attack()
     {
         anim.SetTrigger("IsAttack");
-        Invoke("StopAtk", 0.7f);
+        Invoke("StopAtk", 0.8f);
     }
 
     void Jump()
@@ -160,7 +159,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!anim.GetBool("IsHurt") && (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Bullet")))
+        if (!anim.GetBool("IsHurt") && (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Bullet"))) //피격 당하지 않은 상태, 적 or 총알 충돌
         {
             if (isTouch && !isJump)
             {
@@ -172,6 +171,7 @@ public class Player : MonoBehaviour
                 Hurt();
             }
         }
+
         if (collision.gameObject.CompareTag("BindEnemy"))
         {
             isBind = true;

@@ -40,11 +40,11 @@ public class _2StageMob_Spawn : MonoBehaviour
     }
     void Update()
     {
-        if( D == true)
+        if (D == true)
         {
             CurTime += Time.deltaTime;
 
-            if (CurTime > 0.05&&tt < 19)
+            if (CurTime > 0.05 && tt < 19)
             {
                 tt++;
                 CurTime = 0;
@@ -62,7 +62,7 @@ public class _2StageMob_Spawn : MonoBehaviour
                 t++;
                 CurTime = 0;
             }
-            if(CCurTime > 5)
+            if (CCurTime > 5)
             {
                 D = true;
                 Stop = false;
@@ -79,12 +79,12 @@ public class _2StageMob_Spawn : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(count == 1)
+        if (count == 1)
         {
-        Instantiate(obj,spanwPos.position,Quaternion.Euler(0,0,0));
-        count--;
-        player.speed = 0;
-        Stop = true;
+            Instantiate(obj, spanwPos.position, Quaternion.Euler(0, 0, 0));
+            count--;
+            player.speed = 0;
+            Stop = true;
 
         }
     }

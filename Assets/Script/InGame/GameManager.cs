@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static bool isPlayerDie = false;
+    public static bool isPlayerDie;
 
     // Start is called before the first frame update
     void Start()

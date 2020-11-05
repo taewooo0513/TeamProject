@@ -7,8 +7,9 @@ public enum EnemyKind
     MELEE,
     GIANT,
     RUNNER,
+    RANGED,
     CHASING,
-    RANGED
+    OBSTACLE
 }
 
 
@@ -118,9 +119,12 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if(kind == EnemyKind.CHASING)
         {
-            //anim.SetTrigger("IsAttack");
+            if(collision.GetComponent<Enemy>().kind == EnemyKind.OBSTACLE)
+            {
+                hp--;
+            }
         }
     }
 
